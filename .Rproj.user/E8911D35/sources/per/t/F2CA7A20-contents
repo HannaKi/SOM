@@ -1,0 +1,62 @@
+
+# https://www.r-bloggers.com/self-organising-maps-for-customer-segmentation-using-r/
+
+library(readr)
+library(tidyverse)
+library(kohonen)
+
+setwd("C:/Users/kittiha/OneDrive - Helsingin Seudun liikenne - Kuntayhtym?/Kansalaisten tyytyv?isyys")
+source("Sovita_Kohosen_SOM.R")
+
+df <-
+  read.csv(
+    "N:/Liikennej?rjestelm? ja tutkimukset/Liikennetutkimukset/Tutkimuksia_muiden/Kansalaisten tyytyv?isyys liikennej?rjestelm??n/2017/tietokanta_ja_kuvaus/tietokanta_ilman_koordinaatteja/Kansalaiset_2017.csv",
+    sep = ";",
+    stringsAsFactors = FALSE
+  )
+
+# muuttujanimien kaikki kirjaimet pieniksi
+colnames(df) <- tolower(colnames(df))
+
+# osadatojen poiminta
+jalankulkuAs <- select(df, starts_with("k3")) 
+pyorailyAs <- select(df, starts_with("k4")) 
+autoiluAs <- select(df, starts_with("k5"))
+autoiluPitka <- select(df, starts_with("k8"))
+julkisetMuuSuomi <- select(df, starts_with("k6_")) 
+julkisetHslYleinen <- select(df, starts_with("k6a")) 
+
+# hankalat matriisit pilkottava edelleen
+# HSL-liikennemuodoittain
+julkisetHslLiikennemuodot <- select(df, starts_with("k6b")) 
+
+colnames(HSLbussi) <- gsub("_jl_hki_bussi", "", colnames(HSLbussi))
+HSLbussi <- select(julkisetHslLiikennemuodot, contains("bussi")) %>% na.omit()
+HSLmetro <- select(julkisetHslLiikennemuodot, contains("metro")) %>% na.omit()
+HSLratikka <- julkisetHslLiikennemuodot[,21:30] %>% na.omit()
+HSLjuna <- select(julkisetHslLiikennemuodot, contains("juna")) %>% na.omit() # miksi junasta on vain 9 saraketta?
+
+# pitkat matkat liikennemuodoittain
+julkinenPitka <- select(df, starts_with("k9"))
+
+pitkaJuna <- select(julkinenPitka, contains("juna")) %>% na.omit()
+pitkaBussi <- select(julkinenPitka, contains("bussi")) %>% na.omit()
+pitkaLen <- select(julkinenPitka, contains("lento")) %>% na.omit()
+
+setwd("C:/Users/kittiha/OneDrive - Helsingin Seudun liikenne - Kuntayhtym?/Kansalaisten tyytyv?isyys/SOM kuvaajat")
+
+set.seed(4)
+
+#colnames(HSLjuna) <- gsub("_jl_hki_lahijuna", "", colnames(HSLjuna))
+
+x <- jalankulkuAs
+
+som_model <- sovitaKohosenSOM(x)
+
+plot(som_model, type="changes")
+plot(som_model, type="count")
+summary(som_model)
+
+piirraKohosenSOM(som_model)
+
+

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1556100669787.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3431595892",
+    "id" : "F2CA7A20",
+    "lastKnownWriteTime" : 1551121917,
+    "last_content_update" : 1551121917,
+    "path" : "N:/Liikennejärjestelmä ja tutkimukset/Liikennetutkimukset/Tutkimuksia_muiden/Kansalaisten tyytyväisyys liikennejärjestelmään/2017/Analyysit/Kansalaisten tyytyväisyys/SOM-kartat/SOM-sovittaminen-ja-kuvaajat/Muokkaa_data_ja_aja.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "28,40",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
