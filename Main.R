@@ -4,6 +4,7 @@
 # setwd()
 
 library(readr)
+library(readxl)
 library(tidyverse)
 library(kohonen)
 library(here)

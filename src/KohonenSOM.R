@@ -27,13 +27,12 @@ PrintKohonenSOM <- function(x, tiedostonNimi) {
   pdf(file=tiedosto)
   par(mfrow = c(4, 3)) 
   for (col.name in 1:dim(som_model$codes[[1]])[2]){
+    par(cex.main = 1)
     plot(
       x,
       type = "property",
       property = som_model$codes[[1]][,col.name],
       main = colnames((som_model$data[[1]]))[col.name],
-      cex.main = 2,
-      cex = 1.5,
       palette.name = coolBlueHotRed,
       heatkeywidth = .6,
       shape = c("straight")
